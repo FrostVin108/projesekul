@@ -131,7 +131,7 @@
 <body>
   <!-- Sidebar -->
   <div class="sidebar">
-    <div class="nav-section">
+    <div class="nav-scroll">
       <h2>Kenzo & Vincent</h2>
       <hr>
       <div class="nav-links">
