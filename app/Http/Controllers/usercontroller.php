@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use App\Models\Guru;
 use App\Models\Siswa;
@@ -9,66 +7,62 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class usercontroller extends Controller
 {
-    // Tampilkan form register
+    // Menampilkan form register
     public function showRegisterForm()
     {
-        $gurus = Guru::all(); // Untuk dropdown guru
-        $siswas = Siswa::all(); // Untuk dropdown siswa
-        return view('register', compact('gurus', 'siswas'));
+        return view('register');
     }
-
     // Proses register
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255|unique:users,name',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:guru,siswa', // Tambah required
+            'role' => 'required|in:guru,siswa',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        // Buat user
+        // Buat user baru
         User::create([
             'name' => $request->name,
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
-
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
+        // Redirect ke login dengan pesan sukses
+        return redirect()->route('login')->with('success', 'Akun berhasil dibuat! Silakan login.');
     }
-
-    // Tampilkan form login
+    // Menampilkan form login
     public function showLoginForm()
     {
         return view('login');
     }
 
-    // Proses login (tetap pakai email, sesuai kode Anda; jika ingin ganti ke name, ubah seperti sebelumnya)
+    // Proses login
     public function login(Request $request)
     {
-        $credentials = $request->only('name', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string',
+            'password' => 'required|string',
+        ]);
+        // Coba login
+        if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
+            $user = Auth::user();
 
             // Redirect berdasarkan role
-            $user = Auth::user();
             if ($user->role === 'guru') {
-                return redirect()->route('guru'); // Atau route dashboard guru
+                return redirect()->intended('/guru'); // Sesuaikan route dashboard guru
             } elseif ($user->role === 'siswa') {
-                return redirect()->route('siswa'); // Atau route dashboard siswa
-            } else {
-                return redirect('/'); // Default
+                return redirect()->intended('/siswa'); // Sesuaikan route dashboard siswa
             }
         }
-
-        return back()->withErrors(['name' => 'name atau password salah.']);
+        // Jika gagal, throw error
+        throw ValidationException::withMessages([
+            'name' => ['Nama atau password salah.'],
+        ]);
     }
 
     // Logout
@@ -77,6 +71,6 @@ class usercontroller extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect('/login');
     }
 }

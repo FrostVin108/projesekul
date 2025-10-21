@@ -9,6 +9,7 @@ use App\Http\Controllers\siswacontroller;
 use App\Http\Controllers\kelascontroller;
 use App\Http\Controllers\ekstrakulikulercontroller;
 use App\Http\Controllers\registercontroller;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,19 +23,19 @@ use App\Http\Controllers\registercontroller;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('pelajaran');
 });
 
+// Routes untuk register
 Route::get('/register', [usercontroller::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [usercontroller::class, 'register'])->name('register.store');
+Route::post('/register', [usercontroller::class, 'register']);
+// Routes untuk login
 Route::get('/login', [usercontroller::class, 'showLoginForm'])->name('login');
-Route::post('/login', [usercontroller::class, 'login'])->name('login.store');
+Route::post('/login', [usercontroller::class, 'login']);
+// Route untuk logout (opsional, bisa ditambahkan di middleware auth)
 Route::post('/logout', [usercontroller::class, 'logout'])->name('logout');
 
-
-// Route::middleware('auth')->group(function () {
-    // Route yang sudah ada, seperti guru, siswa, dll.
-    // Tambahkan middleware 'auth' jika belum ada
+Route::middleware(['auth'])->group(function () {
 
     Route::get('/guru/bidang', [gurucontroller::class, 'index'])->name('guru.bidang');
     Route::post('/guru/bidang', [gurucontroller::class, 'store'])->name('guru.bidang.store');
@@ -71,11 +72,6 @@ Route::post('/logout', [usercontroller::class, 'logout'])->name('logout');
     Route::put('/ekstrakulikuler/{ekstrakulikuler}', [ekstrakulikulercontroller::class, 'ekstra_update'])->name('ekstra.update');
     Route::delete('/ekstrakulikuler/{ekstrakulikuler}', [ekstrakulikulercontroller::class, 'ekstra_destroy'])->name('ekstra.destroy');
 
-    Route::get('/register', [registercontroller::class, 'register_index'])->name('register');
-    Route::post('/register', [registercontroller::class, 'register_store'])->name('register.store');
-    Route::put('/register/{register}', [registercontroller::class, 'register_update'])->name('register.update');
-    Route::delete('/register/{register}', [registercontroller::class, 'register_destroy'])->name('register.destroy');
-
     Route::get('/pelajaran', [pelajarancontroller::class, 'pelajaran_index'])->name(name: 'pelajaran');
     Route::post('/pelajaran', [pelajarancontroller::class, 'pelajaran_store'])->name('pelajaran.store');
     Route::put('/pelajaran/{pelajaran}', [pelajarancontroller::class, 'pelajaran_update'])->name('pelajaran.update');
@@ -100,4 +96,4 @@ Route::post('/logout', [usercontroller::class, 'logout'])->name('logout');
     Route::post('/ruang-kelas', [RuanganController::class, 'ruang_store'])->name('ruang_kelas.store');
     Route::put('/ruang-kelas/{ruang_kelas}', [RuanganController::class, 'ruang_update'])->name('ruang_kelas.update');
     Route::delete('/ruang-kelas/{ruang_kelas}', [RuanganController::class, 'ruang_destroy'])->name('ruang_kelas.destroy');
-// });
+});
