@@ -148,7 +148,14 @@
       background-color: #948979;
       color: #222831;
     }
-    .table td, .table th {
+    .table td {
+      background-color: #2228315e;
+      color: #DFD0B8;
+      vertical-align: middle;
+    }
+
+    .table th {
+      background-color: #222831;
       color: #DFD0B8;
       vertical-align: middle;
     }
