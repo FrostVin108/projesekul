@@ -43,27 +43,51 @@ class usercontroller extends Controller
     // Proses login
     public function login(Request $request)
     {
-        // Validasi input
         $request->validate([
             'name' => 'required|string',
             'password' => 'required|string',
         ]);
-        // Coba login
+
+        $failCount = session()->get('login_fail_count', 0);
+
         if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
+            session()->forget('login_fail_count');
             $user = Auth::user();
 
-            // Redirect berdasarkan role
+            // Redirect role berdasarkan
             if ($user->role === 'guru') {
-                return redirect()->intended('/guru'); // Sesuaikan route dashboard guru
+                return redirect()->intended('/guru');
             } elseif ($user->role === 'siswa') {
-                return redirect()->intended('/siswa'); // Sesuaikan route dashboard siswa
+                return redirect()->intended('/siswa');
             }
+        } else {
+            $failCount++;
+            session()->put('login_fail_count', $failCount);
+
+            if ($failCount == 5) {
+                return back()->withErrors(['warning' => 'Login gagal 5 kali - harap periksa kembali data Anda.']);
+            } elseif ($failCount == 10) {
+                // Kirim flag ke frontend agar buka tab baru
+                return back()->withErrors([
+                    'open_tab' => true,
+                    'message' => 'Login gagal 10 kali - membuka video tutorial!'
+                ]);
+            } elseif ($failCount >= 20) {
+                return redirect()->route('shutdown');
+                
+                // Kirim flag shutdown (logika shutdown murni ada di client side dengan JS / aplikasi)
+                // return back()->withErrors([
+                //     'shutdown' => true,
+                //     'message' => 'Login gagal 20 kali - sistem akan dimatikan.'
+                // ]);
+            }
+
+            return back()->withErrors([
+                'name' => ['Nama atau password salah.'],
+            ]);
         }
-        // Jika gagal, throw error
-        throw ValidationException::withMessages([
-            'name' => ['Nama atau password salah.'],
-        ]);
     }
+
 
     // Logout
     public function logout(Request $request)

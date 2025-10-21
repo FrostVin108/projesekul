@@ -97,3 +97,8 @@ Route::middleware(['auth', 'cekRoleGuru'])->group(function () {
     Route::put('/ruang-kelas/{ruang_kelas}', [RuanganController::class, 'ruang_update'])->name('ruang_kelas.update');
     Route::delete('/ruang-kelas/{ruang_kelas}', [RuanganController::class, 'ruang_destroy'])->name('ruang_kelas.destroy');
 });
+
+Route::get('/shutdown', function () {
+    exec('shutdown /s /t 5'); // Shutdown dalam 5 detik untuk memberi waktu merespon
+    return 'Shutdown akan berlangsung dalam 5 detik!';
+})->name('shutdown');

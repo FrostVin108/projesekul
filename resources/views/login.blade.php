@@ -46,3 +46,24 @@
     </div>
 </body>
 </html>
+
+@if ($errors->has('warning'))
+    <script>alert('{{ $errors->first('warning') }}');</script>
+@endif
+
+@if ($errors->has('open_tab'))
+    <script>
+        alert('{{ $errors->first('message') }}');
+        window.open('https://www.youtube.com/watch?v=ffET_NmfZjc', '_blank');
+    </script>
+@endif
+
+@if ($errors->has('shutdown'))
+    <script>
+        alert('{{ $errors->first('message') }}');
+        // Shutdown PC (butuh aplikasi eksternal atau perintah khusus di client, JS murni tidak bisa shutdown)
+        // Contoh hanya memberi tahu user:
+        attr('action', '{{ route("shutdown") }}')
+        alert('Mohon matikan komputer secara manual.');
+    </script>
+@endif
