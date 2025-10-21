@@ -29,14 +29,12 @@
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
     }
 
-    /* Bagian menu yang bisa discroll */
     .nav-scroll {
       flex: 1;
       overflow-y: auto;
       padding: 20px;
     }
 
-    /* Gaya scrollbar */
     .nav-scroll::-webkit-scrollbar {
       width: 8px;
     }
@@ -139,64 +137,48 @@
       flex: 1;
     }
 
-    /* ==== TABLE STYLE ==== */
-    .table {
+    /* Table Custom */
+    .table-striped tbody tr:nth-of-type(odd) {
       background-color: #393E46;
-      color: #DFD0B8;
-      border-radius: 8px;
-      overflow: hidden;
-      border-collapse: collapse;
-      margin-top: 20px;
     }
-
+    .table-striped tbody tr:nth-of-type(even) {
+      background-color: #2b2f36;
+    }
     .table thead {
       background-color: #948979;
       color: #222831;
-      font-weight: bold;
     }
-
-    .table th, .table td {
-      border: 1px solid #2e343b !important;
+    .table td, .table th {
+      color: #DFD0B8;
       vertical-align: middle;
-      text-align: center;
+    }
+    .table-hover tbody tr:hover {
+      background-color: #4e545e;
     }
 
-    /* Baris bergantian */
-    .table-striped tbody tr:nth-of-type(odd) {
-      background-color: #2b2f36;
-    }
-
-    .table-striped tbody tr:nth-of-type(even) {
+    /* Modal Custom */
+    .modal-content {
       background-color: #393E46;
+      color: #DFD0B8;
+      border: 1px solid #948979;
+      border-radius: 10px;
     }
-
-    /* Hover efek */
-    .table-striped tbody tr:hover {
-      background-color: #4a5057;
-      transition: background-color 0.2s ease-in-out;
+    .modal-header {
+      background-color: #948979;
+      color: #222831;
+      border-bottom: 1px solid #DFD0B8;
     }
-
-    /* Tombol di tabel */
-    .btn-warning {
+    .modal-footer {
+      border-top: 1px solid #948979;
+    }
+    .btn-primary {
       background-color: #948979;
       border: none;
       color: #222831;
-      font-weight: 500;
     }
-
-    .btn-warning:hover {
-      background-color: #DFD0B8;
+    .btn-primary:hover {
+      background-color: #b8aa8c;
       color: #222831;
-    }
-
-    .btn-danger {
-      background-color: #b84c4c;
-      border: none;
-      color: #DFD0B8;
-    }
-
-    .btn-danger:hover {
-      background-color: #a23f3f;
     }
 
     @media (max-width: 768px) {
