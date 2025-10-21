@@ -132,6 +132,7 @@
       color: #DFD0B8;
     }
 
+    /* Konten utama */
     .content {
       margin-left: 270px;
       padding: 30px;
@@ -180,13 +181,13 @@
 
     <!-- Tombol Logout -->
     <div class="logout-section">
-    <a href="{{ route('logout') }}" class="logout-btn"
-       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-      Logout
-    </a>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-      @csrf
-    </form>
+      <a href="{{ route('logout') }}" class="logout-btn"
+         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        Logout
+      </a>
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+      </form>
     </div>
   </div>
 
