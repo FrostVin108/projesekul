@@ -146,31 +146,47 @@ body {
   color: #DFD0B8;
   border-radius: 8px;
   overflow: hidden;
+  border-collapse: collapse;
 }
 
+/* Header */
 .table thead {
   background-color: #948979;
   color: #222831;
   font-weight: bold;
 }
 
-.table tbody tr {
-  background-color: #393E46;
+/* Garis pembatas */
+.table th, 
+.table td {
+  border: 1px solid #2e343b !important;
+  vertical-align: middle;
+}
+
+/* Warna baris bergantian */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #2b2f36;  /* warna sedikit lebih gelap */
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: #393E46;  /* warna sedikit lebih terang */
+}
+
+/* Hover efek */
+.table-striped tbody tr:hover {
+  background-color: #4a5057;
   transition: background-color 0.2s ease-in-out;
 }
 
-.table tbody tr:hover {
-  background-color: #4b5259;
-}
-
-/* Tombol-tombol di tabel */
+/* Tombol di dalam tabel */
 .btn-warning {
   background-color: #948979;
   border: none;
   color: #222831;
 }
 .btn-warning:hover {
-  background-color: #a89c8a;
+  background-color: #DFD0B8;
+  color: #222831;
 }
 
 .btn-danger {
