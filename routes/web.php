@@ -35,7 +35,7 @@ Route::post('/login', [usercontroller::class, 'login']);
 // Route untuk logout (opsional, bisa ditambahkan di middleware auth)
 Route::post('/logout', [usercontroller::class, 'logout'])->name('logout');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'cekRoleGuru'])->group(function () {
 
     Route::get('/guru/bidang', [gurucontroller::class, 'index'])->name('guru.bidang');
     Route::post('/guru/bidang', [gurucontroller::class, 'store'])->name('guru.bidang.store');
