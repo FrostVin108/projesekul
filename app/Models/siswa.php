@@ -27,10 +27,10 @@ class siswa extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id');
     }
     // Relasi inverse: Siswa bisa memiliki Kelas (siswa_id di kelas)
-    public function kelasAsSiswa()
-    {
-        return $this->hasOne(Kelas::class, 'siswa_id');
-    }
+    // public function kelasAsSiswa()
+    // {
+    //     return $this->hasOne(Kelas::class, 'siswa_id');
+    // }
     // Relasi inverse: Siswa bisa memiliki banyak Ekstrakulikuler
     public function ekstrakulikulers()
     {

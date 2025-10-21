@@ -67,7 +67,7 @@ class RuanganController extends Controller
     {
         $request->validate([
             'ruang' => 'required|string|max:255',
-            'status' => 'required|string|max:255',
+            'status' => 'nullable|string|max:255',
             'lokasi' => 'required|string|max:255',
             'kelas_id' => 'nullable|exists:kelas,id',
             'history' => 'nullable|string|max:255',

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('count_siswa');
             $table->unsignedBigInteger('ruang_id')->nullable(); // FK akan ditambahkan nanti
             // $table->unsignedBigInteger('absen')->nullable(); // FK akan ditambahkan nanti
-            $table->unsignedBigInteger('siswa_id')->nullable(); // FK akan ditambahkan nanti
+            // $table->unsignedBigInteger('siswa_id')->nullable(); // FK akan ditambahkan nanti
             $table->unsignedBigInteger('kelas_apa_id')->nullable(); // FK akan ditambahkan nanti
             // $table->unsignedBigInteger('piket')->nullable(); // FK akan ditambahkan nanti
             // $table->string('pkl', 5);

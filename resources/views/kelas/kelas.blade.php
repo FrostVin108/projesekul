@@ -24,7 +24,6 @@
                     <th>ID</th>
                     <th>Count Siswa</th>
                     <th>Ruang</th>
-                    <th>Siswa Utama</th>
                     <th>Kelas Apa</th>
                     <th>Actions</th>
                 </tr>
@@ -35,12 +34,11 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->count_siswa }}</td>
                         <td>{{ $item->ruangKelas->ruang ?? 'N/A' }}</td>
-                        <td>{{ $item->siswa->name ?? 'N/A' }}</td>
-                        <td>{{ $item->kelasApa->kelas_berapa  ?? 'N/A' }}</td>
+                        <td>{{ $item->kelasApa->kelas_berapa ?? 'N/A' }}</td>
                         <td>
                             <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#crudModal"
-                                onclick="editKelas({{ $item->id }}, '{{ $item->count_siswa }}', '{{ $item->ruang_id }}', '{{ json_encode($item->siswas->pluck('id')->toArray()) }}', '{{ $item->kelas_apa_id }}')">
+                                onclick="editKelas({{ $item->id }}, '{{ $item->count_siswa }}', '{{ $item->ruang_id }}', '{{ $item->kelas_apa_id }}')">
                                 Edit
                             </button>
                             <form action="{{ route('kelas.destroy', $item->id) }}" method="POST" style="display: inline;">
@@ -54,7 +52,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center">No data available</td>
+                        <td colspan="5" class="text-center">No data available</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -72,8 +70,7 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="count_siswa" class="form-label">Count Siswa</label>
-                            <input type="number" class="form-control" id="count_siswa" name="count_siswa" readonly required
-                                min="0"> <!-- Readonly agar otomatis -->
+                            <input type="number" class="form-control" id="count_siswa" name="count_siswa"   min="0">
                         </div>
                         <div class="mb-3">
                             <label for="ruang_id" class="form-label">Ruang</label>
@@ -81,14 +78,6 @@
                                 <option value="">Pilih Ruang (Opsional)</option>
                                 @foreach($ruang_kelas as $r)
                                     <option value="{{ $r->id }}">{{ $r->ruang }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="siswa_id" class="form-label">Siswa (Pilih Multiple)</label>
-                            <select class="form-select" id="siswa_id" name="siswa_id[]" multiple> <!-- Multiple select -->
-                                @foreach($siswas as $s)
-                                    <option value="{{ $s->id }}">{{ $s->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -118,26 +107,19 @@
         function resetForm() {
             $('#crudForm').attr('action', '{{ route("kelas.store") }}');
             $('#crudForm').find('input[name="_method"]').remove();
-            $('#count_siswa').val('0');
+            $('#count_siswa').val('');
             $('#ruang_id').val('');
-            $('#siswa_id').val([]); // Reset multiple select
             $('#kelas_apa_id').val('');
             $('#crudModalLabel').text('Add New Kelas');
         }
-        function editKelas(id, count_siswa, ruang_id, siswa_ids, kelas_apa_id) {
+        function editKelas(id, count_siswa, ruang_id, kelas_apa_id) {
             $('#crudForm').attr('action', '{{ route("kelas.update", ":id") }}'.replace(':id', id));
             $('#crudForm').append('<input type="hidden" name="_method" value="PUT">');
             $('#count_siswa').val(count_siswa);
             $('#ruang_id').val(ruang_id);
-            $('#siswa_id').val(siswa_ids); // Set selected options dari array
             $('#kelas_apa_id').val(kelas_apa_id);
             $('#crudModalLabel').text('Edit Kelas');
         }
-        // Hitung count_siswa otomatis saat siswa dipilih
-        $('#siswa_id').on('change', function () {
-            var selectedCount = $(this).val().length;
-            $('#count_siswa').val(selectedCount);
-        });
         $('#crudForm').on('submit', function (e) {
             e.preventDefault();
             $.ajax({

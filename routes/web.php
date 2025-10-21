@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('pelajaran');
-});
+// Route::get('/', function () {
+//     return view('pelajaran');
+// });
 
 // Routes untuk register
 Route::get('/register', [usercontroller::class, 'showRegisterForm'])->name('register');

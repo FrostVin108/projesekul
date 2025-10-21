@@ -12,7 +12,7 @@ class kelas extends Model
     protected $fillable = [
         'count_siswa',
         'ruang_id',
-        'siswa_id',
+        // 'siswa_id',
         'kelas_apa_id',
     ];
     // Relasi: Kelas belongs to RuangKelas
@@ -21,10 +21,10 @@ class kelas extends Model
         return $this->belongsTo(ruang_kelas::class, 'ruang_id');
     }
     // Relasi: Kelas belongs to Siswa
-    public function siswa()
-    {
-        return $this->belongsTo(Siswa::class, 'siswa_id');
-    }
+    // public function siswa()
+    // {
+    //     return $this->belongsTo(Siswa::class, 'siswa_id');
+    // }
     // Relasi: Kelas belongs to KelasApa
     public function kelasApa()
     {

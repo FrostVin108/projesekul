@@ -155,7 +155,7 @@
     }
 
     .table th {
-      background-color: #222831;
+      background-color: #222831a2;
       color: #DFD0B8;
       vertical-align: middle;
     }
