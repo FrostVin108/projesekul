@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    body {
+body {
       background-color: #222831;
       color: #DFD0B8;
       font-family: 'Poppins', sans-serif;
@@ -148,14 +148,7 @@
       background-color: #948979;
       color: #222831;
     }
-    .table td {
-      background-color: #2228315e;
-      color: #DFD0B8;
-      vertical-align: middle;
-    }
-
-    .table th {
-      background-color: #222831a2;
+    .table td, .table th {
       color: #DFD0B8;
       vertical-align: middle;
     }
@@ -188,46 +181,45 @@
       color: #222831;
     }
 
-        /* Cards untuk statistik */
-        .stat-card {
-            background-color: #393E46;
-            border: 1px solid #948979;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .stat-card h3 {
-            color: #DFD0B8;
-            margin-bottom: 10px;
-        }
-        .stat-card p {
-            font-size: 2rem;
-            color: #948979;
-            font-weight: bold;
-        }
+    /* Cards Statistik */
+    .stat-card {
+      background-color: #393E46;
+      border: 1px solid #948979;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .stat-card h3 {
+      color: #DFD0B8;
+      margin-bottom: 10px;
+    }
+    .stat-card p {
+      font-size: 2rem;
+      color: #948979;
+      font-weight: bold;
+    }
 
-        /* Header Dashboard */
-        .dashboard-header {
-            background-color: #393E46;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            text-align: center;
-            border: 1px solid #948979;
-        }
+    /* Header Dashboard */
+    .dashboard-header {
+      background-color: #393E46;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      text-align: center;
+      border: 1px solid #948979;
+    }
 
-        /* Footer */
-        .dashboard-footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #2b2f36;
-            border-radius: 10px;
-            border: 1px solid #948979;
-        }
-
+    /* Footer */
+    .dashboard-footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #2b2f36;
+      border-radius: 10px;
+      border: 1px solid #948979;
+    }
 
     @media (max-width: 768px) {
       .sidebar {
