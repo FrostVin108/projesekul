@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 // Routes untuk register
 Route::get('/register', [usercontroller::class, 'showRegisterForm'])->name('register');

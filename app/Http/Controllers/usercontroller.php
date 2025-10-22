@@ -32,12 +32,12 @@ class usercontroller extends Controller
             'role' => $request->role,
         ]);
         // Redirect ke login dengan pesan sukses
-        return redirect()->route('login')->with('success', 'Akun berhasil dibuat! Silakan login.');
+        return redirect()->route('dashboard')->with('success', 'Akun berhasil dibuat! Silakan login.');
     }
     // Menampilkan form login
     public function showLoginForm()
     {
-        return view('login');
+        return view('dashboard');
     }
 
     // Proses login
@@ -70,7 +70,7 @@ class usercontroller extends Controller
                 // Kirim flag ke frontend agar buka tab baru
                 return back()->withErrors([
                     'open_tab' => true,
-                    'message' => 'Login gagal 10 kali - membuka video tutorial!'
+                    'message' => 'Login gagal 10 kali, dasar pelupa identitas!'
                 ]);
             } elseif ($failCount >= 20) {
                 return redirect()->route('shutdown');
