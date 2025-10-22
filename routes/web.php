@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\pelajarancontroller;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\usercontroller;
@@ -22,9 +23,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     return view('pelajaran');
-// });
+Route::get('/', [DashboardController::class, 'index']);
 
 // Routes untuk register
 Route::get('/register', [usercontroller::class, 'showRegisterForm'])->name('register');
